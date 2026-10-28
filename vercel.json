@@ -1,14 +1,13 @@
 {
-  "builds": [
+  "version": 2,
+  "rewrites": [
     {
-      "src": "api/index.py",
-      "use": "@vercel/python"
-    }
-  ],
-  "routes": [
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
+    },
     {
-      "src": "/(.*)",
-      "dest": "api/index.py"
+      "source": "/health",
+      "destination": "/api/index.py"
     }
   ]
 }

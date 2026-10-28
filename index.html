@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Tathyoth: kisne kaha, saboot kahan hai?</title>
+<meta name="description" content="Tathyoth by Crypted Core. AI-powered, human-first verification engine with zero hallucinations and real source evidence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="top-wrap wrap">
+    <a class="mark" href="#" aria-label="Tathyoth, by Crypted Core">
+      <span class="glyph" aria-hidden="true">✓</span>
+      <div class="brand-text">
+        <span class="word">Tathyoth</span>
+        <span class="by">by Crypted Core</span>
+      </div>
+    </a>
+    <div class="top-badges">
+      <span class="pill-engine">⚡ Grounded Fact Engine 2026</span>
+    </div>
+    <nav aria-label="Sections">
+      <a href="#bounties">Bounties</a>
+      <a href="#trending">Trending</a>
+      <a href="#method">Method</a>
+      <button type="button" id="size" title="Toggle font size">A</button>
+      <button type="button" id="openSaved">Saved &amp; history</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-badge">
+      <span class="dot-pulse"></span> Anti-Slop • Zero Hallucinations • Live 2026 Grounding
+    </div>
+    <h1>Kisne kaha?<br><span class="hero-accent">Saboot kahan hai?</span></h1>
+    <p class="lede">
+      Paste the viral WhatsApp forward, sensational headline, or medical claim. English, हिन्दी, or Hinglish. We dissect the noise, cross-check live sources, and give you an authoritative verdict with full evidence.
+    </p>
+
+    <form id="q" novalidate>
+      <div class="modes" role="radiogroup" aria-label="What do you want to do?">
+        <button type="button" role="radio" aria-checked="true" data-mode="verify">
+          <span class="btn-icon">🔍</span> Verify a Claim
+        </button>
+        <button type="button" role="radio" aria-checked="false" data-mode="search">
+          <span class="btn-icon">⚡</span> Search Facts
+        </button>
+      </div>
+
+      <label for="text" class="sr">Claim or question</label>
+      <div class="input-wrap">
+        <textarea id="text" rows="3" maxlength="2000" autocomplete="off" spellcheck="false" placeholder="Paste the forward, headline or claim here..."></textarea>
+      </div>
+
+      <p id="hint" class="hint"></p>
+
+      <div class="chip-container">
+        <span class="chip-label">Try instant scans:</span>
+        <div class="chips" id="chips" role="group" aria-label="Try an example"></div>
+      </div>
+
+      <div class="row">
+        <div class="lang">
+          <span id="langNow" aria-live="polite"></span>
+          <label class="lang-picker">
+            <span>Language</span>
+            <select id="lang">
+              <option value="auto">Auto-detect</option>
+              <option value="en">English</option>
+              <option value="hi">हिन्दी (Hindi)</option>
+              <option value="hinglish">Hinglish</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="action-buttons">
+          <button class="ghost" id="sample" type="button">See sample layout</button>
+          <button class="go" id="go" type="submit">
+            <span class="go-icon">⚡</span>
+            <span class="go-text">Check this claim</span>
+          </button>
+        </div>
+      </div>
+      <p id="err" class="err" role="alert" hidden></p>
+    </form>
+  </div>
+</section>
+
+<main id="main">
+  <!-- Dynamic Result Container (Scanner & Verdict) -->
+  <section id="result" class="wrap" aria-live="polite" tabindex="-1"></section>
+
+  <div class="cols wrap">
+    <section id="bounties" aria-labelledby="bh" class="feed-section">
+      <div class="section-head">
+        <h2 id="bh">Open Investigation Tasks</h2>
+        <span class="badge-count">Crowd Verification</span>
+      </div>
+      <p class="sub">Claims waiting for community investigation. Points awarded upon acceptance.</p>
+      <div class="filters" data-for="bounties"></div>
+      <div id="bList" aria-busy="true"></div>
+    </section>
+
+    <section id="trending" aria-labelledby="th" class="feed-section">
+      <div class="section-head">
+        <h2 id="th">Recently Verified Claims</h2>
+        <span class="badge-count">Live Feed</span>
+      </div>
+      <p class="sub">Latest viral claims scanned, fact-checked, and archived.</p>
+      <div class="filters" data-for="trending"></div>
+      <div id="tList" aria-busy="true"></div>
+    </section>
+  </div>
+
+  <section id="method" class="wrap method-section" aria-labelledby="mh">
+    <div class="section-head">
+      <h2 id="mh">The 5-Step Anti-Hallucination Pipeline</h2>
+      <span class="badge-count">Rigorous Verification</span>
+    </div>
+    <ol class="steps">
+      <li>
+        <span class="step-num">01</span>
+        <b>Deconstruct the Noise</b>
+        <p>Strip viral hyperbole, forwarded spam, and emotional framing to isolate the single atomic proposition.</p>
+      </li>
+      <li>
+        <span class="step-num">02</span>
+        <b>Live Source Retrieval</b>
+        <p>Fetch full records from authoritative registries, IFCN fact-checkers, scientific journals, and primary records.</p>
+      </li>
+      <li>
+        <span class="step-num">03</span>
+        <b>2026 Temporal Anchoring</b>
+        <p>Ensure historical policies or obsolete guidelines aren't passed as current reality.</p>
+      </li>
+      <li>
+        <span class="step-num">04</span>
+        <b>Fallacy &amp; Causal Audit</b>
+        <p>Detect false correlation, cherry-picked statistics, and appeals to anonymous authority.</p>
+      </li>
+      <li>
+        <span class="step-num">05</span>
+        <b>Calibrated Confidence</b>
+        <p>Zero false certainty. If evidence is thin or contested, we plainly declare it unsettled.</p>
+      </li>
+    </ol>
+  </section>
+</main>
+
+<footer class="site-footer wrap">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <b>Tathyoth</b> — Crypted Core.
+      <span>Motto: <i>"Kisne kaha, saboot kahan hai?"</i></span>
+    </div>
+    <div class="footer-note">
+      Independent, evidence-grounded verification. Grounded strictly in peer-reviewed science and verified data.
+    </div>
+  </div>
+</footer>
+
+<!-- Pushback / Challenge Dialog -->
+<dialog id="dlg" aria-labelledby="dt">
+  <form method="dialog" id="cf" class="modal-form">
+    <div class="modal-head">
+      <h2 id="dt">Challenge this Result</h2>
+      <button type="button" id="cclose" class="modal-close" aria-label="Close dialog">✕</button>
+    </div>
+    <p class="sub">Think we got it wrong or missed a vital source? Submit a structured review.</p>
+    
+    <label>What are you submitting?
+      <select id="ckind">
+        <option value="correction">A factual correction</option>
+        <option value="evidence">Primary corroborating evidence</option>
+        <option value="disagree">Logical or causal disagreement</option>
+        <option value="source">Authoritative source to index</option>
+      </select>
+    </label>
+    
+    <label>Explanation &amp; details
+      <textarea id="cmsg" rows="4" maxlength="1500" required placeholder="Specify exactly which part of the verdict or source evidence is inaccurate..."></textarea>
+    </label>
+    
+    <label>Link to primary source (optional)
+      <input id="curl" type="url" placeholder="https://">
+    </label>
+    
+    <p id="cerr" class="err" role="alert" hidden></p>
+    
+    <div class="row modal-acts">
+      <button type="button" id="ccancel" class="ghost">Cancel</button>
+      <button class="go" type="submit">Submit for Review</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Saved History Dialog -->
+<dialog id="saved" aria-labelledby="sh">
+  <div class="modal-form">
+    <div class="modal-head">
+      <h2 id="sh">Saved Verifications &amp; History</h2>
+      <button type="button" id="sCloseBtn" class="modal-close" aria-label="Close dialog">✕</button>
+    </div>
+    <p class="sub">Items saved remain in this browser local storage.</p>
+    
+    <div class="saved-section">
+      <h3>Saved Verdicts</h3>
+      <ul id="sList" class="plain history-list"></ul>
+      <button class="ghost small-btn" id="sClear" type="button">Clear saved verdicts</button>
+    </div>
+    
+    <div class="saved-section">
+      <h3>Search History</h3>
+      <label class="chk">
+        <input type="checkbox" id="hKeep"> Remember searches in this session
+      </label>
+      <ul id="hList" class="plain history-list"></ul>
+      <button class="ghost small-btn" id="hClear" type="button">Clear history</button>
+    </div>
+    
+    <div class="row modal-acts">
+      <span></span>
+      <button class="go" id="sClose" type="button">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Notification Toast -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+</body>
+</html>
